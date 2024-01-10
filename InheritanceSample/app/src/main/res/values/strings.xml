@@ -1,0 +1,16 @@
+<resources>
+	<string name="app_name">InheritanceSample</string>
+
+	<string name="reptile">Reptile</string>
+	<string name="mammal">Mammal</string>
+	<string name="fish">Fish</string>
+	<string name="species_label">SPECIES</string>
+	<string name="tuna">Tuna</string>
+	<string name="tiger">Tiger</string>
+	<string name="dog">Dog</string>
+	<string name="snake">Snake</string>
+	<string name="chicken">Chicken</string>
+	<string name="lizard">Lizard</string>
+	<string name="sounds_label">SOUNDS</string>
+	<string name="bird">Bird</string>
+</resources>
