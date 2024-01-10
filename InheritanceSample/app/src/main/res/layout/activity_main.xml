@@ -7,6 +7,8 @@
 	android:layout_height="match_parent"
 	tools:context=".MainActivity">
 
+	<!-- For app designs that have a lot of elements, it is recommended to use a scroll view
+	 since there are Android phones that have small dimensions -->
 	<ScrollView
 		android:layout_width="0dp"
 		android:layout_height="0dp"

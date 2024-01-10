@@ -1,5 +1,6 @@
 package com.example.inheritancesample.species
 
-import com.example.inheritancesample.Specie
-
+/**
+ * Fish interface
+ */
 interface Fish : Specie

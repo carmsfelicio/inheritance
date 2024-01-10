@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.inheritancesample.animals.*
 import com.example.inheritancesample.databinding.ActivityMainBinding
-import com.example.inheritancesample.species.Bird
-import com.example.inheritancesample.species.Fish
-import com.example.inheritancesample.species.Mammal
-import com.example.inheritancesample.species.Reptile
+import com.example.inheritancesample.species.*
 
 /**
  * Main activity class
@@ -17,12 +14,18 @@ class MainActivity : AppCompatActivity() {
 	/** Layout binding */
 	private var binding: ActivityMainBinding? = null
 
+	// In this example I created an enum of Animals so that it can be reused throughout this app.
+	// You can actually use a list for this but it would only be beneficial for the displaying of animals
+	// under the species text box.
 	/**
 	 * Enum class of animals
 	 *
 	 * @param animal Animal object
 	 */
 	private enum class ANIMAL(val animal: Animal) {
+		// There are two ways to declare a derived class.
+		// 1) Override the inherited variables in to the class (see Lizard, Tiger, Snake, Dog classes)
+		// 2) Or put the overridden variables in the parameters and initialize them upon making a new object (see Tuna and Chicken classes)
 		/** Lizard */
 		LIZARD(Lizard()),
 		/** Tiger */
@@ -52,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private fun initializeViews() {
 		binding?.btnLizard?.setOnClickListener {
+			// In the case that the enum of Animals is non-existent, you can actually just do
+			// showSound(Lizard())
+			// but it would create a new object everytime you click the button thus using more memory
 			showSound(ANIMAL.LIZARD)
 		}
 
@@ -106,9 +112,13 @@ class MainActivity : AppCompatActivity() {
 	 *
 	 * @param specie Specie
 	 */
+	// This accepts a class (or an interface) that is extending the interface Specie
 	private fun showSpeciesList(specie: Class<out Specie>) {
+		// For long texts, it is better to use StringBuilder
 		val builder = StringBuilder()
 		ANIMAL.entries.forEach {
+			// You can know if a class is being extended by an interface or implementing a class
+			// by doing this ↓
 			if (specie.isAssignableFrom(it.animal.javaClass)) {
 				builder.append(it.animal.name)
 				builder.append("\n")

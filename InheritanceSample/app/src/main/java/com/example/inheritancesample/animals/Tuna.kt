@@ -1,6 +1,5 @@
 package com.example.inheritancesample.animals
 
-import com.example.inheritancesample.Animal
 import com.example.inheritancesample.species.Fish
 
 /**
