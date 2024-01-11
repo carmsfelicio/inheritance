@@ -6,9 +6,6 @@ import com.example.inheritancesample.species.Mammal
  * Tiger class
  */
 class Tiger : Animal(), Mammal {
-	override val name: String
-		get() = "Tiger"
-
-	override val sound: String
-		get() = "Roar!"
+	override val name: String = "Tiger"
+	override val sound: String = "Roar!"
 }
