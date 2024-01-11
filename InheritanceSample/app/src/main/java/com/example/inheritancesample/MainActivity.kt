@@ -14,31 +14,23 @@ class MainActivity : AppCompatActivity() {
 	/** Layout binding */
 	private var binding: ActivityMainBinding? = null
 
-	// In this example I created an enum of Animals so that it can be reused throughout this app.
-	// You can actually use a list for this but it would only be beneficial for the displaying of animals
-	// under the species text box.
-	/**
-	 * Enum class of animals
-	 *
-	 * @param animal Animal object
-	 */
-	private enum class ANIMAL(val animal: Animal) {
-		// There are two ways to declare a derived class.
-		// 1) Override the inherited variables in to the class (see Lizard, Tiger, Snake, Dog classes)
-		// 2) Or put the overridden variables in the parameters and initialize them upon making a new object (see Tuna and Chicken classes)
-		/** Lizard */
-		LIZARD(Lizard()),
-		/** Tiger */
-		TIGER(Tiger()),
-		/** Tuna */
-		TUNA(Tuna("Tuna", "Blub blub")),
-		/** Chicken */
-		CHICKEN(Chicken("Chicken", "Bok bok!")),
-		/** Snake */
-		SNAKE(Snake()),
-		/** Dog */
-		DOG(Dog())
-	}
+	// There are two ways to create a derived class.
+	// 1) Override the inherited variables in to the class (see Lizard, Tiger, Snake, Dog classes)
+	// 2) Or put the overridden variables in the parameters and initialize them upon making a new object (see Tuna and Chicken classes)
+	/** Lizard */
+	val lizard = Lizard()
+	/** Tiger */
+	val tiger = Tiger()
+	/** Tuna */
+	val tuna = Tuna("Tuna", "Blub blub")
+	/** Chicken */
+	val chicken = Chicken("Chicken", "Bok bok!")
+	/** Snake */
+	val snake = Snake()
+	/** Dog */
+	val dog = Dog()
+	/** List of animals */
+	val animalsList = listOf<Animal>(lizard, tiger, tuna, chicken, snake, dog)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -55,30 +47,27 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private fun initializeViews() {
 		binding?.btnLizard?.setOnClickListener {
-			// In the case that the enum of Animals is non-existent, you can actually just do
-			// showSound(Lizard())
-			// but it would create a new object everytime you click the button thus using more memory
-			showSound(ANIMAL.LIZARD)
+			showSound(lizard)
 		}
 
 		binding?.btnTiger?.setOnClickListener {
-			showSound(ANIMAL.TIGER)
+			showSound(tiger)
 		}
 
 		binding?.btnTuna?.setOnClickListener {
-			showSound(ANIMAL.TUNA)
+			showSound(tuna)
 		}
 
 		binding?.btnChicken?.setOnClickListener {
-			showSound(ANIMAL.CHICKEN)
+			showSound(chicken)
 		}
 
 		binding?.btnSnake?.setOnClickListener {
-			showSound(ANIMAL.SNAKE)
+			showSound(snake)
 		}
 
 		binding?.btnDog?.setOnClickListener {
-			showSound(ANIMAL.DOG)
+			showSound(dog)
 		}
 
 		binding?.btnMammal?.setOnClickListener {
@@ -103,8 +92,8 @@ class MainActivity : AppCompatActivity() {
 	 *
 	 * @param animal Animal
 	 */
-	private fun showSound(animal: ANIMAL) {
-		binding?.textSound?.text = animal.animal.sound
+	private fun showSound(animal: Animal) {
+		binding?.textSound?.text = animal.sound
 	}
 
 	/**
@@ -116,15 +105,27 @@ class MainActivity : AppCompatActivity() {
 	private fun showSpeciesList(specie: Class<out Specie>) {
 		// For long texts, it is better to use StringBuilder
 		val builder = StringBuilder()
-		ANIMAL.entries.forEach {
+
+		// If you're gonna go through the whole list, you can also use forEach.
+		// There's also forEachIndexed if you're gonna need the index of the item
+		animalsList.forEach { animal ->
+			// ↑ You can also not set the name of the value-parameter (animal) for this just 「animalsList.forEach {・・}」
+			// and use 'it' when trying to access the item's properties. See commented block of code below
+
 			// You can know if a class is being extended by an interface or implementing a class
 			// by doing this ↓
-			if (specie.isAssignableFrom(it.animal.javaClass)) {
-				builder.append(it.animal.name)
+			if (specie.isAssignableFrom(animal.javaClass)) {
+				builder.append(animal.name)
 				builder.append("\n")
 			}
 		}
-		val text = builder.toString()
-		binding?.textSpecies?.text = text
+
+		/*animalsList.forEach {
+			// To access item's property
+			it.name
+			it.sound
+		}*/
+
+		binding?.textSpecies?.text = builder.toString()
 	}
 }
